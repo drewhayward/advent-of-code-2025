@@ -46,27 +46,24 @@ impl Solution for Dial {
         let mut num_zeros = 0;
         let mut position = 50;
         for move_ in moves {
-            dbg!(&move_);
             let abs_position = match move_ {
                 Move::R(clicks) => position + clicks,
                 Move::L(clicks) => position - clicks,
             };
 
-            let new_position = dbg!(abs_position.rem_euclid(100));
+            let new_position = abs_position.rem_euclid(100);
 
             // for the R case the number of wraps, is the number of zeros touched, since
             // each wrap has to touch a zero
-            num_zeros += dbg!(abs_position.div_euclid(100).abs());
+            num_zeros += abs_position.div_euclid(100).abs();
 
             // When moving left and stopping on zero, we have one more zero than wrap
             if let Move::L(_) = move_ && new_position == 0 {
-                dbg!("ending at 0, adding 1");
                 num_zeros += 1;
             }
 
             // When moving left and starting on zero, don't count the first wrap
             if let Move::L(_) = move_ && position == 0 {
-                dbg!("ending at 0, adding 1");
                 num_zeros -= 1;
             }
 
