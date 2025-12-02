@@ -27,14 +27,15 @@ impl Range {
 fn is_mirrored(digit: i64) -> bool {
     let digit_str = format!("{digit}");
     let midpoint = digit_str.len() / 2;
-    return digit_str[0..midpoint] == digit_str[midpoint..digit_str.len()];
+
+    digit_str[0..midpoint] == digit_str[midpoint..]
 }
 
 fn is_repeated(digit: i64) -> bool {
     let digit_str = format!("{digit}");
-    for cycles in 2..digit_str.len() + 1 {
+    for cycles in 2..=digit_str.len() {
         // if the digit doesn't divide evenly by our target number of cycles
-        if digit_str.len().rem_euclid(cycles) != 0 {
+        if digit_str.len() % cycles != 0 {
             continue;
         }
 
