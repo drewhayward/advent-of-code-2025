@@ -1,3 +1,4 @@
 pub mod solution;
 
-pub mod day01;
+mod days;
+pub use days::*;

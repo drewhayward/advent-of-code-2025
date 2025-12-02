@@ -3,6 +3,7 @@ use std::path::Path;
 use std::{env, fs};
 
 use advent_of_code_2025::day01::Dial;
+use advent_of_code_2025::day02::GiftShop;
 use advent_of_code_2025::solution::Solution;
 
 fn get_input(day: u64) -> io::Result<String> {
@@ -36,6 +37,7 @@ fn main() {
 
     match day {
         1 => run_solutions::<Dial>(input),
+        2 => run_solutions::<GiftShop>(input),
         _ => println!("No day solution for day {day}"),
     }
 }
