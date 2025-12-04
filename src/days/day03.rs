@@ -27,26 +27,23 @@ fn max_substring(digits: &[i64], length: usize) -> i64 {
     let mut memo: HashMap<(usize, usize), i64> = HashMap::new();
     // Build mem table for ascending sizes
     for l in 1..=length {
-        for pos in (0..digits.len()).rev() {
-            if pos + l > digits.len() {
-                continue;
-            }
-
-            // base case
+        for pos in (0..digits.len() - l + 1).rev() {
+            // base case, there are only l digits
             if pos + l == digits.len() {
                 let val = combine(&digits[pos..pos + l]);
                 memo.insert((pos, l), val);
                 continue;
             }
 
-            // what is the max substring starting at pos of length l?
-            // we don't use the current digit and lookup the best result
+            // what is the max substring starting at pos of length l? either:
+            
+            // 1) we don't use the current digit and lookup the best result
             // from the suffix
             let max_suffix: i64 = *memo
                 .get(&(pos + 1, l))
                 .expect("should have just visited this cell");
 
-            // We use this digit and the suffix of l-1
+            // 2) We use this digit and (possibly) the best suffix of l-1
             let use_digit: i64 = match l {
                 1 => digits[pos],
                 _ => {
@@ -58,8 +55,7 @@ fn max_substring(digits: &[i64], length: usize) -> i64 {
                 }
             };
 
-            let val = max(max_suffix, use_digit);
-            memo.insert((pos, l), val);
+            memo.insert((pos, l), max(max_suffix, use_digit));
         }
     }
 
