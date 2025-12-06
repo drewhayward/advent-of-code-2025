@@ -82,7 +82,6 @@ impl Solution for Trash {
             .map(|l| l.into_iter().filter(|s| **s != ' ').map(|c| *c).collect())
             .collect();
 
-        // dbg!(grid);
         let problems: Vec<Vec<i64>> = grid
             .split(|l| l.is_empty())
             .map(|problems| {
@@ -94,7 +93,7 @@ impl Solution for Trash {
             })
             .collect();
 
-        zip(dbg!(problems), ops.iter().rev())
+        zip(problems, ops.iter().rev())
             .map(|(nums, op)| {
                 let (acc, op): (i64, fn(i64, i64) -> i64) = match *op {
                     "*" => (1, Mul::mul),
