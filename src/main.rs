@@ -9,6 +9,7 @@ use advent_of_code_2025::day04::PrintDpmt;
 use advent_of_code_2025::day05::Cafe;
 use advent_of_code_2025::day06::Trash;
 use advent_of_code_2025::day07::Laboratories;
+use advent_of_code_2025::day08::Playground;
 use advent_of_code_2025::day09::Theater;
 use advent_of_code_2025::solution::Solution;
 
@@ -48,6 +49,7 @@ fn main() {
         5 => run_solutions::<Cafe>(input),
         6 => run_solutions::<Trash>(input),
         7 => run_solutions::<Laboratories>(input),
+        8 => run_solutions::<Playground>(input),
         9 => run_solutions::<Theater>(input),
         _ => println!("No day solution for day {day}"),
     }
