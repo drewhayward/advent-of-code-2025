@@ -105,14 +105,41 @@ impl Solution for Laboratories {
     fn part2(puzzle_input: String) -> String {
         let grid = Grid::parse(&puzzle_input);
 
-        // init starting state
+        let mut prior_level: Vec<i64> = vec![0; grid.width as usize];
+        prior_level[grid.start.0 as usize] = 1;
+        let mut current_level: Vec<i64>;
+        for current_height in 1..grid.height {
+            current_level = vec![0; grid.width as usize];
+            for column in 0..grid.width {
+                let mut beam_count = 0;
+                if !matches!(
+                    grid.cells.get(&(column, current_height - 1)),
+                    Some(Cell::Splitter)
+                ) {
+                    beam_count += prior_level[(column) as usize]
+                }
 
-        loop { // break when we get to the final tier
+                if matches!(
+                    grid.cells.get(&(column - 1, current_height - 1)),
+                    Some(Cell::Splitter)
+                ) {
+                    beam_count += prior_level[(column - 1) as usize]
+                }
 
-            // given this current known level, calculate the next level
+                if matches!(
+                    grid.cells.get(&(column + 1, current_height - 1)),
+                    Some(Cell::Splitter)
+                ) {
+                    beam_count += prior_level[(column + 1) as usize]
+                }
+
+                current_level[column as usize] = beam_count
+            }
+
+            prior_level = current_level;
         }
 
-        todo!()
+        prior_level.iter().sum::<i64>().to_string()
     }
 }
 

@@ -47,12 +47,11 @@ fn generate_edges(points: &[Point]) -> Vec<Edge> {
     edges
 }
 
-fn find_tree<'a>(forest: &'a Vec<Tree>, point: &'a Point) -> usize {
+fn find_tree<'a>(forest: &'a [Tree], point: &'a Point) -> usize {
     forest
         .iter()
         .enumerate()
-        .filter(|(_, t)| t.contains(point))
-        .next()
+        .find(|(_, t)| t.contains(point))
         .unwrap()
         .0
 }
@@ -75,11 +74,7 @@ fn kruskals_n_edges(points: &[Point], n: usize) -> (Vec<Tree>, Vec<Edge>) {
     let mut forest: Vec<Tree> = points
         .iter()
         .cloned()
-        .map(|point| {
-            let mut h = HashSet::new();
-            h.insert(point);
-            h
-        })
+        .map(|point| std::iter::once(point).collect())
         .collect();
 
     // Kruskals
