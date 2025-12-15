@@ -11,6 +11,7 @@ use advent_of_code_2025::day06::Trash;
 use advent_of_code_2025::day07::Laboratories;
 use advent_of_code_2025::day08::Playground;
 use advent_of_code_2025::day09::Theater;
+use advent_of_code_2025::day11::Reactor;
 use advent_of_code_2025::solution::Solution;
 
 fn get_input(day: u64) -> io::Result<String> {
@@ -38,6 +39,7 @@ fn main() {
     let args: Vec<String> = env::args().collect();
     let day: u64 = args[1].parse().unwrap();
 
+    dbg!(&args);
     // let test_input = get_test_input(day).expect("File is read correctly");
     let input = get_input(day).expect("File is read correctly");
 
@@ -51,6 +53,7 @@ fn main() {
         7 => run_solutions::<Laboratories>(input),
         8 => run_solutions::<Playground>(input),
         9 => run_solutions::<Theater>(input),
+        11 => run_solutions::<Reactor>(input),
         _ => println!("No day solution for day {day}"),
     }
 }

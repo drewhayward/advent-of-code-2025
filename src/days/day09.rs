@@ -59,7 +59,7 @@ fn parse_input(input: &str) -> Vec<Point> {
         .collect()
 }
 
-fn lines_intersect(line1: Line, line2: Line) -> bool {
+fn lines_intersect(_line1: Line, _line2: Line) -> bool {
     true
 }
 
